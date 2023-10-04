@@ -193,7 +193,7 @@ def send_request_line_api_insight_search_term(*args, **kwargs):
                                 .replace('{custome_2}', row['serch_term_2']) \
                                 .replace('{custome_3}', row['serch_term_3']) \
                                 .replace('{custome_4}', row['serch_term_4']) \
-                                .replace('{custome_5}', row['serch_term_5']) 
+                                .replace('{custome_5}', row['serch_term_5'])
 
 
         r = requests.post(url, headers = headers, data = json_data_v1.encode('utf-8'))
@@ -234,7 +234,7 @@ def send_request_line_api_insight_top_5_best_selling(*args, **kwargs):
                                 .replace('{menu4}', row['menu4']) \
                                 .replace('{menu4_percent}', str(row['menu4_percent'])) \
                                 .replace('{menu5}', row['menu5']) \
-                                .replace('{menu5_percent}', str(row['menu5_percent'])) 
+                                .replace('{menu5_percent}', str(row['menu5_percent']))
 
         r = requests.post(url, headers = headers, data = json_data_v1.encode('utf-8'))
         reponse_code = r.status_code
@@ -279,7 +279,7 @@ def send_request_line_api_insight_basket_size(*args, **kwargs):
                                 .replace('{custome_Zone_4}', str(row['zone_301_400'])) \
                                 .replace('{custome_4}', str(row['vendor_301_400'])) \
                                 .replace('{custome_Zone_5}', str(row['zone_401'])) \
-                                .replace('{custome_5}', str(row['vendor_401'])) 
+                                .replace('{custome_5}', str(row['vendor_401']))
 
         r = requests.post(url, headers = headers, data = json_data_v1.encode('utf-8'))
         reponse_code = r.status_code
@@ -324,7 +324,7 @@ def send_request_line_api_insight_opening_time(*args, **kwargs):
                                 .replace('{custome_44}', str(row['zone_5PM_10PM'])) \
                                 .replace('{custome_4}', str(row['vendor_5PM_10PM'])) \
                                 .replace('{custome_55}', str(row['zone_10PM_5AM'])) \
-                                .replace('{custome_5}', str(row['vendor_10PM_5AM'])) 
+                                .replace('{custome_5}', str(row['vendor_10PM_5AM']))
 
         r = requests.post(url, headers = headers, data = json_data_v1.encode('utf-8'))
         reponse_code = r.status_code
@@ -373,7 +373,7 @@ def send_request_line_api_insight_top_3_and_ractors(*args, **kwargs):
                                 .replace('{top_offline}', str(row['zone_off_pct'])) \
                                 .replace('{vd_offline}', str(row['vendor_off_pct'])) \
                                 .replace('{top_rating}', str(row['zone_rating'])) \
-                                .replace('{vd_rating}', str(row['vendor_rating'])) 
+                                .replace('{vd_rating}', str(row['vendor_rating']))
 
         r = requests.post(url, headers = headers, data = json_data_v1.encode('utf-8'))
         reponse_code = r.status_code
@@ -423,6 +423,30 @@ def send_request_line_api_generic_reminder(*args, **kwargs):
     df = df.reset_index()
     for index, row in df.iterrows():
         json_data_v1 = json_string.replace('{line_user_id}', row['line_user_id'])
+        r = requests.post(url, headers = headers, data = json_data_v1.encode('utf-8'))
+        print(r.text)
+        reponse_code = r.status_code
+        reponse_code_list.append(reponse_code)
+        json_list.append(json_data_v1)
+    return reponse_code_list, json_list
+
+def send_request_line_api_rider_credential(*args, **kwargs):
+    # reponse collections lists
+    reponse_code_list = []
+    json_list = []
+
+    # setting variables
+    url = kwargs['url']
+    headers = kwargs['headers']
+    json_string = kwargs['json_object']
+    df = kwargs['dataframe']
+    df.replace(to_replace=[None], value="--", inplace=True)
+    df = df.reset_index()
+    for index, row in df.iterrows():
+        json_data_v1 = json_string.replace('{line_user_id}', row['line_user_id']) \
+                                .replace('{rider_email}', row['rider_email']) \
+                                .replace('{rider_password}', row['rider_password'])
+
         r = requests.post(url, headers = headers, data = json_data_v1.encode('utf-8'))
         print(r.text)
         reponse_code = r.status_code
