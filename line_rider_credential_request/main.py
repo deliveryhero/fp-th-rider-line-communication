@@ -28,7 +28,7 @@ if Live == False:
     query = f"""
       SELECT DISTINCT
         NULL AS vendor_code,
-        rider_id,
+        CAST(rider_id AS STRING) AS rider_id,
         line_user_id,
         rider_email,
         rider_password
@@ -41,7 +41,7 @@ if Live == True:
     query = f"""
       SELECT DISTINCT
         NULL AS vendor_code,
-        rider_id,
+        CAST(rider_id AS STRING) AS rider_id,
         line_user_id,
         rider_email,
         rider_password
@@ -73,7 +73,7 @@ df["msg_sent_date_time"] = now
 df["template_id_if_any"] = "line_rider_credential_request"
 df["msg_url"] = url
 df["msg_content"] = 'content rider_id: ' + dataframe['rider_id'] \
-                    + ',' + 'content rider_email: ' + dataframe['rider_email']
+                    +','+'content rider_email: ' + dataframe['rider_email']
 df_records = df.to_dict('records')
 
 try:
