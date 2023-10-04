@@ -113,7 +113,7 @@ json_object = """
                 "label": "ไปยังระบบแลกรางวัลฯ",
                 "uri": "https://ridershop.foodpanda.co.th/"
               },
-              "color": "#FF2B855B",
+              "color": "#FF2B85",
               "gravity": "center"
             }
           ]
