@@ -27,8 +27,7 @@ now = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
 if Live == False:
     query = f"""
       SELECT DISTINCT
-        NULL AS vendor_code,
-        CAST(rider_id AS STRING) AS rider_id,
+        CAST(rider_id AS STRING) AS vendor_code,
         line_user_id,
         rider_email,
         rider_password
@@ -40,8 +39,7 @@ if Live == False:
 if Live == True:
     query = f"""
       SELECT DISTINCT
-        NULL AS vendor_code,
-        CAST(rider_id AS STRING) AS rider_id,
+        CAST(rider_id AS STRING) AS vendor_code,
         line_user_id,
         rider_email,
         rider_password
@@ -72,7 +70,7 @@ df["return_response"] = reponse_code_list
 df["msg_sent_date_time"] = now
 df["template_id_if_any"] = "line_rider_credential_request"
 df["msg_url"] = url
-df["msg_content"] = 'content rider_id: ' + dataframe['rider_id'] \
+df["msg_content"] = 'content rider_id: ' + dataframe['vendor_code'] \
                     +','+'content rider_email: ' + dataframe['rider_email']
 df_records = df.to_dict('records')
 
