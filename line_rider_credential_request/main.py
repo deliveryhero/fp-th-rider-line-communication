@@ -33,6 +33,7 @@ if Live == False:
         rider_password
       FROM {query_table}
       WHERE DATE(record_created_at_local) = CURRENT_DATE
+        AND has_rider_credential
       LIMIT 1
     """
 
@@ -45,6 +46,7 @@ if Live == True:
         rider_password
       FROM {query_table}
       WHERE DATE(record_created_at_local) = CURRENT_DATE
+        AND has_rider_credential
     """
 
 try:
@@ -71,7 +73,7 @@ df["msg_sent_date_time"] = now
 df["template_id_if_any"] = "line_rider_credential_request"
 df["msg_url"] = url
 df["msg_content"] = 'content rider_id: ' + dataframe['vendor_code'] \
-                    +','+'content rider_email: ' + dataframe['rider_email']
+                    + ', ' + 'content rider_email: ' + dataframe['rider_email']
 df_records = df.to_dict('records')
 
 try:
