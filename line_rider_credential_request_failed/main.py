@@ -27,7 +27,11 @@ now = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
 if Live == False:
     query = f"""
       SELECT DISTINCT
-        CAST(rider_id AS STRING) AS vendor_code,
+        IF(
+          rider_id IS NULL,
+          "No rider ID",
+          CAST(rider_id AS STRING)
+        ) AS vendor_code,
         line_user_id
       FROM {query_table}
       WHERE DATE(record_created_at_local) = CURRENT_DATE
@@ -38,7 +42,11 @@ if Live == False:
 if Live == True:
     query = f"""
       SELECT DISTINCT
-        CAST(rider_id AS STRING) AS vendor_code,
+        IF(
+          rider_id IS NULL,
+          "No rider ID",
+          CAST(rider_id AS STRING)
+        ) AS vendor_code,
         line_user_id
       FROM {query_table}
       WHERE DATE(record_created_at_local) = CURRENT_DATE
