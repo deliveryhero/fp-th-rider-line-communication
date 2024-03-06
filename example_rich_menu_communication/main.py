@@ -80,14 +80,13 @@ except BaseException as e:
     requests.post(slack_webhook,
     json = {'text' : '*richmenu*: Failed send API request: ' + str(e)})
 
-dataframe["return_response"] = reponse_code_list
-dataframe["msg_sent_date_time"] = now
-dataframe["template_id_if_any"] = "richmenu-6da47a1cac4c62cc569bf5efdef303eb"
-dataframe["msg_url"] = url_list
-dataframe["msg_content"] = "NA"
-df_records = dataframe.to_dict('records')
-
 try:
+  dataframe["return_response"] = reponse_code_list
+  dataframe["msg_sent_date_time"] = now
+  dataframe["template_id_if_any"] = "richmenu-6da47a1cac4c62cc569bf5efdef303eb"
+  dataframe["msg_url"] = url_list
+  dataframe["msg_content"] = "NA"
+  df_records = dataframe.to_dict('records')
   status = record_line_communication_logs(logs_table_id, df_records)
 except BaseException as e:
     requests.post(slack_webhook,
